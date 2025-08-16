@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "fs-uae-netplay.fullname" . }}
+  labels:
+    {{- include "fs-uae-netplay.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: netplay
+      protocol: TCP
+      name: netplay
+  selector:
+    {{- include "fs-uae-netplay.selectorLabels" . | nindent 4 }}
